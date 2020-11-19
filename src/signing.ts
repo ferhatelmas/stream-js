@@ -99,19 +99,3 @@ export function JWTUserSessionToken(
   const opts: SignOptions = { algorithm: 'HS256', noTimestamp: true, ...jwtOptions };
   return jwt.sign(payload, apiSecret, opts);
 }
-
-/**
- * check if token is a valid JWT token
- * @method isJWTSignature
- * @memberof signing
- * @private
- * @param {string} signature - Signature to check
- * @return {boolean}
- */
-export function isJWTSignature(signature: string | null) {
-  if (signature == null || signature.length === 0) {
-    return false;
-  }
-  const token = signature.split(' ')[1] || signature;
-  return JWS_REGEX.test(token) && !!headerFromJWS(token);
-}
